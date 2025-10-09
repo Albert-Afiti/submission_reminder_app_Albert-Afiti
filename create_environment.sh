@@ -3,14 +3,16 @@
 #Taking the user's name for directory creation
 read -p "Enter your first name: " Username
 
-
+#prompting the user to enter a name for the code to run 
 while [[ -z "$Username" ]]; do         
         echo "You have to enter a name!"
         read -p "Please enter your name: " Username
 done
 
+#Creating personalized directories for each user
 Dir_name=submission_reminder_$Username
 
+#Creating a subfolder in the main project folder
 mkdir $Dir_name
 echo "main directory sucessfully created"
 mkdir $Dir_name/app
@@ -22,7 +24,7 @@ echo "assets directory sucessfully created"
 mkdir $Dir_name/config
 echo "config directory sucessfully created"
 
-
+#Adding the content of the config.env given to help make the application work
 cat <<'EOF' >> $Dir_name/config/config.env
 # This is the config file
 ASSIGNMENT="Shell Navigation"
@@ -30,6 +32,7 @@ DAYS_REMAINING=2
 EOF
 echo "config.env sucessfully created and populated"
 
+#Adding the content of the reminer.sh to help make the application run
 cat <<'EOF' >> $Dir_name/app/reminder.sh
 #!/bin/bash
 
@@ -49,7 +52,7 @@ check_submissions $submissions_file
 EOF
 echo "reminder.sh sucessfully created and populated"
 
-
+#Adding the content of the functions .sh to also help the application work 
 cat <<'EOF' >> $Dir_name/modules/functions.sh
 #!/bin/bash
 
@@ -74,7 +77,7 @@ function check_submissions {
 EOF
 echo "functions.sh sucessfully created and populated"
 
-
+#adding the content of submissions.txt and also providing other names that also check if they submitted their assingnment or not  
 cat <<'EOF' >> $Dir_name/assets/submissions.txt
 student, assignment, submission status
 Chinemerem, Shell Navigation, not submitted
@@ -89,17 +92,16 @@ Albert, CSS Queries, not submitted
 EOF
 echo "submissions.txt sucessfully created and populated"
 
+#Changing the working directory to the location of startup.sh itself
 cat <<'EOF' >> $Dir_name/startup.sh
 #!/bin/bash
 
-# Ensure we're in the correct directory
 cd "$(dirname "$0")"
-
-# Run reminder.sh using a relative path
 bash ./app/reminder.sh
 EOF
 echo "startup.sh file sucessfully created and populated"
 
+#Checking to ensure if all the script also update the permissions off all files with .sh
 chmod u+x $Dir_name/app/reminder.sh
 chmod u+x $Dir_name/modules/functions.sh
 chmod u+x $Dir_name/startup.sh

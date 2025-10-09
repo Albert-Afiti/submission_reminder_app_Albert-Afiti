@@ -3,7 +3,7 @@
 #Taking the user's name for directory creation
 read -p "Enter your first name: " Username
 
-#prompting the user to enter a name for the code to run 
+#checking error when
 while [[ -z "$Username" ]]; do         
         echo "You have to enter a name!"
         read -p "Please enter your name: " Username
